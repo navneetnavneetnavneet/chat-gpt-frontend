@@ -1,7 +1,12 @@
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { asyncRegisterUser } from "../store/actions/userActions";
+import { toast } from "react-toastify";
 
 const Register = () => {
+  const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
@@ -9,8 +14,9 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  const submitHandler = (data) => {
-    console.log(data);
+  const submitHandler = async (data) => {
+    await dispatch(asyncRegisterUser(data));
+    toast.success("User register successfully");
 
     reset();
   };
@@ -35,6 +41,7 @@ const Register = () => {
             <input
               type="email"
               id="email"
+              name="email"
               placeholder="Enter Email"
               className="p-2 rounded-md bg-transparent text-white outline-0 border border-zinc-600"
               {...register("email", { required: true })}
@@ -56,6 +63,7 @@ const Register = () => {
               <input
                 type="text"
                 id="firstName"
+                name="firstName"
                 placeholder="Enter First Name"
                 className="p-2 rounded-md bg-transparent text-white outline-0 border border-zinc-600"
                 {...register("firstName", { required: true })}
@@ -76,6 +84,7 @@ const Register = () => {
               <input
                 type="text"
                 id="lastName"
+                name="lastName"
                 placeholder="Enter Last Name"
                 className="p-2 rounded-md bg-transparent text-white outline-0 border border-zinc-600"
                 {...register("lastName", { required: true })}
@@ -97,6 +106,7 @@ const Register = () => {
             <input
               type="password"
               id="password"
+              name="password"
               placeholder="Enter Password"
               className="p-2 rounded-md bg-transparent text-white outline-0 border border-zinc-600"
               {...register("password", { required: true })}

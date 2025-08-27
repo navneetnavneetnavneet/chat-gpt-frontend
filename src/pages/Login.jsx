@@ -1,7 +1,12 @@
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { asyncLoginUser } from "../store/actions/userActions";
 
 const Login = () => {
+  const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
@@ -9,8 +14,9 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const submitHandler = (data) => {
-    console.log(data);
+  const submitHandler = async (data) => {
+    await dispatch(asyncLoginUser(data));
+    toast.success("User login successfully");
 
     reset();
   };
@@ -35,6 +41,7 @@ const Login = () => {
             <input
               type="email"
               id="email"
+              name="email"
               placeholder="Enter Email"
               className="p-2 rounded-md bg-transparent text-white outline-0 border border-zinc-600"
               {...register("email", { required: true })}
@@ -55,6 +62,7 @@ const Login = () => {
             <input
               type="password"
               id="password"
+              name="password"
               placeholder="Enter Password"
               className="p-2 rounded-md bg-transparent text-white outline-0 border border-zinc-600"
               {...register("password", { required: true })}
