@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { toast } from "react-toastify";
@@ -15,9 +15,18 @@ const Message = ({ message }) => {
       });
   };
 
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    sectionRef.current.scrollIntoView({
+      behavior: "smooth",
+    });
+  }, [message]);
+
   return (
     message && (
       <div
+        ref={sectionRef}
         className={`w-fit max-w-full mb-5 ${
           message.role === "user" ? "ml-auto" : "mr-auto"
         }`}
