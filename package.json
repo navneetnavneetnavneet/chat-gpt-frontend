@@ -16,9 +16,12 @@
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-hook-form": "^7.62.0",
+    "react-markdown": "^10.1.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.8.2",
-    "react-toastify": "^11.0.5"
+    "react-syntax-highlighter": "^15.6.6",
+    "react-toastify": "^11.0.5",
+    "socket.io-client": "^4.8.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",

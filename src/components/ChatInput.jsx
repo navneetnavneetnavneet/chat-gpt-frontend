@@ -1,12 +1,17 @@
 import React from "react";
 
-const ChatInput = () => {
+const ChatInput = ({ sendMessageHandler, content, setContent }) => {
   return (
     <div className="w-full md:w-[80%] lg:w-[70%] px-4 py-2 absolute bottom-0">
-      <div className="w-full px-2 py-2 rounded-full bg-zinc-800 ">
-        <form className="w-full flex items-center gap-2 justify-between">
+      <div className="w-full px-2 py-1 md:py-2 rounded-full bg-zinc-800 ">
+        <form
+          onSubmit={sendMessageHandler}
+          className="w-full flex items-center gap-2 justify-between"
+        >
           <i className="ri-add-line text-xl md:text-lg px-3 py-2 flex items-center justify-center rounded-full hover:bg-zinc-700 cursor-pointer"></i>
           <input
+            onChange={(e) => setContent(e.target.value)}
+            value={content}
             type="text"
             placeholder="Ask anything"
             className="w-full py-2 outline-0 border-none bg-transparent"

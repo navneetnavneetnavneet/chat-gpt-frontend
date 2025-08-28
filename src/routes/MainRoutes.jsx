@@ -5,6 +5,7 @@ import Register from "../pages/Register";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { asyncLoadUser } from "../store/actions/userActions";
+import { asyncFetchAllChat } from "../store/actions/chatActions";
 
 const MainRoutes = () => {
   const navigate = useNavigate();
@@ -14,10 +15,11 @@ const MainRoutes = () => {
 
   useEffect(() => {
     dispatch(asyncLoadUser());
+    dispatch(asyncFetchAllChat());
 
     isAuthenticated && navigate("/");
     !isAuthenticated && navigate("/login");
-  }, [isAuthenticated]);
+  }, [isAuthenticated, dispatch]);
 
   return (
     <Routes>
