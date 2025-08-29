@@ -15,6 +15,7 @@ const Home = () => {
 
   const [content, setContent] = useState("");
   const [socket, setSocket] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   const { selectedChat, chatMessages } = useSelector(
     (state) => state.chatReducer
@@ -60,10 +61,10 @@ const Home = () => {
 
   return (
     <div className="w-full h-screen flex bg-zinc-900 text-white ">
-      <Sidebar />
+      <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
 
-      <div className="relative w-full md:w-[80%] h-screen flex flex-col items-center">
-        <TopNav />
+      <div className="relative w-full mx-auto h-screen flex flex-col items-center">
+        <TopNav setIsOpen={setIsOpen} />
         <ChatArea chatMessages={chatMessages} />
         <ChatInput
           sendMessageHandler={sendMessageHandler}

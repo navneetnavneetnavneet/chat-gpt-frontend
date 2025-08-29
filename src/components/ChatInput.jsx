@@ -2,7 +2,7 @@ import React from "react";
 
 const ChatInput = ({ sendMessageHandler, content, setContent }) => {
   return (
-    <div className="w-full md:w-[80%] lg:w-[70%] px-4 py-2 absolute bottom-0">
+    <div className="w-full md:max-w-[75vw] lg:max-w-[65vw] px-4 py-2 absolute bottom-0">
       <div className="w-full px-2 py-1 md:py-2 rounded-full bg-zinc-800 ">
         <form
           onSubmit={sendMessageHandler}
