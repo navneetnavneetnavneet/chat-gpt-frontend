@@ -15,10 +15,13 @@ const Register = () => {
   } = useForm();
 
   const submitHandler = async (data) => {
-    await dispatch(asyncRegisterUser(data));
-    toast.success("User register successfully");
-
-    reset();
+    try {
+      await dispatch(asyncRegisterUser(data)).unwrap();
+      toast.success("User registered successfully");
+      reset();
+    } catch (err) {
+      toast.error(err.message || "Registration failed. Please try again.");
+    }
   };
 
   return (
@@ -44,11 +47,17 @@ const Register = () => {
               name="email"
               placeholder="Enter Email"
               className="p-2 rounded-md bg-transparent text-white outline-0 border border-zinc-600"
-              {...register("email", { required: true })}
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "Invalid email address",
+                },
+              })}
             />
-            {errors.email && errors.email.type === "required" && (
-              <span className="text-red-500 text-sm">
-                This field is required
+            {errors.email && (
+              <span id="email-error" className="text-red-500 text-sm">
+                {errors.email.message}
               </span>
             )}
           </div>
@@ -109,11 +118,17 @@ const Register = () => {
               name="password"
               placeholder="Enter Password"
               className="p-2 rounded-md bg-transparent text-white outline-0 border border-zinc-600"
-              {...register("password", { required: true })}
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 6,
+                  message: "Password must be at least 6 characters",
+                },
+              })}
             />
-            {errors.password && errors.password.type === "required" && (
-              <span className="text-red-500 text-sm">
-                This field is required
+            {errors.password && (
+              <span id="password-error" className="text-red-500 text-sm">
+                {errors.password.message}
               </span>
             )}
           </div>

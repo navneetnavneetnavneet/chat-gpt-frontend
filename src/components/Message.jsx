@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { toast } from "react-toastify";
@@ -10,18 +10,18 @@ const Message = ({ message }) => {
       .then(() => {
         toast.success("Copied to clipboard");
       })
-      .catch((err) => {
-        console.error("Failed to copy: ", err);
+      .catch(() => {
+        toast.error("Failed to copy");
       });
   };
 
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    sectionRef.current.scrollIntoView({
-      behavior: "smooth",
-    });
-  }, [message]);
+    if (sectionRef.current) {
+      sectionRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [message._id]);
 
   return (
     message && (
@@ -41,7 +41,7 @@ const Message = ({ message }) => {
         {message.role === "user" ? (
           <p
             className={`${
-              message.role === "user" ? "px-4 rounded-full" : "px-4 rounded-xl"
+              message.role === "user" ? "px-4 rounded-3xl" : "px-4 rounded-xl"
             } py-2 bg-zinc-800`}
           >
             {message.content}
@@ -64,6 +64,7 @@ const Message = ({ message }) => {
                       maxWidth: "100%",
                       fontStyle: "italic",
                     }}
+                    aria-label={`Code snippet in ${match[1]}`}
                     language={match[1]}
                     {...props}
                   >
@@ -82,10 +83,11 @@ const Message = ({ message }) => {
           <>
             <div className="w-full h-[1px] my-2 bg-zinc-600" />
             <div className="flex items-center gap-5">
-              <i
+              <button
                 onClick={() => handleCopy(message.content)}
+                aria-label="Copy message to clipboard"
                 className="ri-file-copy-line text-xl md:text-lg cursor-pointer"
-              ></i>
+              ></button>
               <i className="ri-thumb-up-line text-xl md:text-lg cursor-pointer"></i>
               <i className="ri-thumb-down-line text-xl md:text-lg cursor-pointer"></i>
               <i className="ri-volume-up-line text-xl md:text-lg cursor-pointer"></i>

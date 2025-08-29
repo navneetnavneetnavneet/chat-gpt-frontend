@@ -14,9 +14,14 @@ const ChatInput = ({ sendMessageHandler, content, setContent }) => {
             value={content}
             type="text"
             placeholder="Ask anything"
+            aria-label="Message input"
             className="w-full py-2 outline-0 border-none bg-transparent"
           />
-          <button className="px-3 py-2 flex-srink-0 flex items-center justify-center rounded-full hover:bg-zinc-700 cursor-pointer">
+          <button
+            type="submit"
+            aria-label="Send message"
+            className="px-3 py-2 flex-shrink-0 flex items-center justify-center rounded-full hover:bg-zinc-700 cursor-pointer"
+          >
             <i className="ri-arrow-up-line text-xl md:text-lg"></i>
           </button>
         </form>

@@ -1,12 +1,11 @@
-import React from "react";
-import Message from "./Message";
+import Message from "../components/Message";
 
 const ChatArea = ({ chatMessages }) => {
   return (
-    <div className="w-full md:max-w-[75vw] lg:max-w-[65vw] px-4 py-2 h-[75vh] relative overflow-y-auto overflow-x-hidden">
+    <section className="w-full md:max-w-[75vw] lg:max-w-[65vw] px-4 py-2 h-[75vh] overflow-y-auto overflow-x-hidden">
       {chatMessages.length === 0 && (
-        <div className="flex flex-col gap-2 items-center text-center absolute top-1/2 -translate-y-1/2">
-          <h4 className="w-fit px-4 py-2 text-xs tracking-tight opacity-60 bg-zinc-800 rounded-full">
+        <div className="flex flex-col gap-2 items-center justify-center text-center mt-40">
+          <h4 className="px-4 py-2 text-xs tracking-tight opacity-60 bg-zinc-800 rounded-full">
             Early Preview
           </h4>
           <h1 className="text-4xl font-medium tracking-tighter leading-none">
@@ -23,7 +22,7 @@ const ChatArea = ({ chatMessages }) => {
       {chatMessages.map((message) => (
         <Message message={message} key={message._id} />
       ))}
-    </div>
+    </section>
   );
 };
 
