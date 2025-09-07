@@ -17,7 +17,7 @@ const Login = () => {
 
   const submitHandler = async (data) => {
     try {
-      const result = await dispatch(asyncLoginUser(data)).unwrap();
+      const result = await dispatch(asyncLoginUser(data));
       toast.success("User logged in successfully");
       reset();
     } catch (err) {

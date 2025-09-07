@@ -2,6 +2,7 @@ import Chats from "../components/Chats";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { asyncCreateChat } from "../store/actions/chatActions";
+import { asyncLogoutUser } from "../store/actions/userActions";
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
   const dispatch = useDispatch();
@@ -66,9 +67,9 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
         <Chats />
 
         <div className="w-full px-2 py-2 flex items-center z-[999] bg-zinc-900 border-t border-zinc-800 absolute left-0 bottom-0">
-          <div className="w-full px-2 py-2 flex items-center gap-2 rounded-md hover:bg-zinc-800 duration-200 cursor-pointer">
+          <div className="w-full px-2 py-2 flex items-center justify-between rounded-md hover:bg-zinc-800 duration-200 cursor-pointer">
             {user?.fullName?.firstName && (
-              <>
+              <div className="flex items-center gap-2">
                 <div className="w-6 h-6 flex items-center justify-center rounded-full bg-green-800">
                   {user.fullName.firstName.slice(0, 1).toUpperCase()}
                 </div>
@@ -80,8 +81,17 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                     Free
                   </small>
                 </div>
-              </>
+              </div>
             )}
+            <button
+              onClick={async () => await dispatch(asyncLogoutUser())}
+              className="flex items-center justify-center gap-1 rounded px-2 py-1 md:hover:bg-red-500 duration-300 cursor-pointer"
+            >
+              <i className="ri-logout-box-line text-sm font-normal tracking-tight"></i>
+              <small className="text-xs font-normal tracking-tight">
+                Logout
+              </small>
+            </button>
           </div>
         </div>
       </aside>

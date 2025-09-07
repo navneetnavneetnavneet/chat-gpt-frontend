@@ -59,3 +59,14 @@ export const asyncLoginUser =
       console.log(error.response.data);
     }
   };
+
+export const asyncLogoutUser = () => async (dispatch, getState) => {
+  try {
+    const { data, status } = await axios.get("/auth/logout");
+    if (data && status === 200) {
+      await dispatch(removeUser());
+    }
+  } catch (error) {
+    console.log(error.response.data);
+  }
+};

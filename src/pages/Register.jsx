@@ -16,7 +16,7 @@ const Register = () => {
 
   const submitHandler = async (data) => {
     try {
-      await dispatch(asyncRegisterUser(data)).unwrap();
+      await dispatch(asyncRegisterUser(data));
       toast.success("User registered successfully");
       reset();
     } catch (err) {
