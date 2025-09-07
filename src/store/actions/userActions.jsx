@@ -5,7 +5,7 @@ export const asyncLoadUser = () => async (dispatch, getState) => {
   try {
     const { data, status } = await axios.get("/auth/");
     console.log(data);
-    
+
     if (data && status === 200) {
       await dispatch(loadUser(data));
     }
@@ -20,9 +20,10 @@ export const asyncGoogleAuth = (token) => async (dispatch, getState) => {
 
     if (data && (status === 200 || status === 201)) {
       await dispatch(loadUser(data));
+      await dispatch(asyncLoadUser());
     }
   } catch (error) {
-    logger.error(error?.response?.data?.message);
+    console.log(error?.response?.data);
   }
 };
 
