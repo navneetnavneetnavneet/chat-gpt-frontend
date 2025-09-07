@@ -2,7 +2,8 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { asyncLoginUser } from "../store/actions/userActions";
+import { asyncGoogleAuth, asyncLoginUser } from "../store/actions/userActions";
+import { GoogleLogin } from "@react-oauth/google";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -24,9 +25,14 @@ const Login = () => {
     }
   };
 
+  const handleGoogleLogin = async (credentialResponse) => {
+    const token = credentialResponse.credential;
+    await dispatch(asyncGoogleAuth(token));
+  };
+
   return (
     <div className="w-full h-screen px-4 py-4 bg-zinc-900 flex items-center justify-center">
-      <div className="w-full md:w-1/2 lg:w-1/3 px-4 py-4 flex flex-col gap-3 rounded-md shadow bg-zinc-800 text-white">
+      <div className="w-full md:w-1/2 lg:w-1/3 px-4 py-4 flex flex-col items-center gap-3 rounded-md shadow bg-zinc-800 text-white">
         <h1 className="text-4xl md:text-2xl leading-0 font-semibold tracking-tight text-center py-4">
           Login Account
         </h1>
@@ -95,6 +101,10 @@ const Login = () => {
             Login
           </button>
         </form>
+        <GoogleLogin
+          onSuccess={handleGoogleLogin}
+          onError={(error) => console.log(error)}
+        />
         <p className="text-center text-sm">
           Don't have an account ?{" "}
           <Link to="/register" className="text-blue-500 font-medium">

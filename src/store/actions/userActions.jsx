@@ -14,6 +14,18 @@ export const asyncLoadUser = () => async (dispatch, getState) => {
   }
 };
 
+export const asyncGoogleAuth = (token) => async (dispatch, getState) => {
+  try {
+    const { data, status } = await axios.post("/auth/google", { token });
+
+    if (data && (status === 200 || status === 201)) {
+      await dispatch(loadUser(data));
+    }
+  } catch (error) {
+    logger.error(error?.response?.data?.message);
+  }
+};
+
 export const asyncRegisterUser =
   ({ firstName, lastName, email, password }) =>
   async (dispatch, getState) => {
